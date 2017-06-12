@@ -1,0 +1,262 @@
+.a_content_block {
+    margin: 10px 0px;
+}
+
+.px_spin {
+    height: 30px;
+    background: url(../img/spin.gif) no-repeat 50%;
+    display: inline-block;
+    display: none;
+}
+
+.px_error {
+	color: red;
+}
+
+.px_invalid {
+	border: solid 1px red !important;
+}
+
+.px_thanks {
+	display: none;
+	background: #585858;
+    padding: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+
+/* Galley Styles */
+
+.cb_gallery {
+	list-style: none;
+	margin-top: 10px;
+	margin-left: 0px;
+	overflow: hidden;
+}
+
+.cols2 li {
+	width: 50%;
+	float: left;
+}
+
+.cols3 li {
+	width: 33.333%;
+	float: left;
+}
+
+.cols4 li {
+	width: 25%;
+	float: left;
+}
+
+.cols5 li {
+	width: 20%;
+	float: left;
+}
+
+.cb_gallery_style1 li {
+    padding: 10px;
+}
+
+.cb_gallery_style1 li img {
+    box-shadow: 0px 0px 18px rgba(0,0,0,0.3);
+}
+
+/* Slide Show */
+
+.px_slideShow {
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    max-width: 680px;
+    border-radius: 3px;
+}
+
+.px_slideShow .prev,
+.px_slideShow .next {
+	background: #d2d2d2;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+    height: 30px;
+}
+
+.px_slideShow .prev:hover,
+.px_slideShow .next:hover {
+	opacity: 0.8;
+}
+
+.px_slideShow .prev {
+    float: left;
+    background: #d2d2d2 url(../img/prevMob.png) no-repeat 5% 50%;
+    background-size: 20px;
+    opacity: 0.3;
+}
+
+.px_slideShow .pxSlide {
+	float: left;
+	width: 100%;
+}
+
+.px_slideShow .next {
+    float: left;
+    background: #d2d2d2 url(../img/nextMob.png) no-repeat 95% 50%;
+    background-size: 20px;
+    opacity: 0.3;
+}
+
+.colorPadding {
+    padding: 0px 15px;
+}
+
+/* rating */
+
+.starList {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 0px;
+}
+
+.starList li {
+    display: inline-block;
+    background: url(../img/star.png) no-repeat 50% 50%;
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 0px;
+}
+
+/* download */
+
+.px_download {
+    background: #efefef;
+    padding: 20px;
+    border: solid 1px #dedede;
+    text-align: center;
+}
+
+.px_download p {
+	margin: 10px 0px 0px 0px;
+}
+
+.pxbtn {
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    font-size: 22px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.pxbtn:hover {
+    filter: brightness(105%);
+}
+
+.pxdownloadbtn {
+	background: #ffd97f;
+	margin-bottom: 10px;
+	background-image: url('../img/download.png');
+	background-repeat: no-repeat;
+	background-position: 95% 48%;
+	padding: 5px 35px 5px 10px;
+}
+
+.px_download .form {
+	display: none;
+}
+
+.px_download .form input {
+	display: inline-block;
+    width: 80%;
+}
+
+.px_download .form button {
+	width: 19%;
+}
+
+.px_download span {
+	text-decoration: underline;
+    cursor: pointer;
+}
+
+.c_modal {
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 5;
+    top: 0px;
+}
+
+.c_modal .box {
+	background: #ffffff;
+    width: 800px;
+    padding: 20px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.c_modal p {
+	margin-bottom: 0px;
+}
+
+@media (min-width: 500px) {
+
+	.px_slideShow {
+		display: flex;
+	}
+
+	.px_slideShow .prev,
+	.px_slideShow .next {
+	    width: 5%;
+		height: auto;
+	}
+
+	.px_slideShow .prev {
+	    background: #d2d2d2 url(../img/prev.png) no-repeat 50% 50%;
+	    background-size: 20px;
+	}
+
+	.px_slideShow .pxSlide {
+		width: 90%;
+	}
+
+	.px_slideShow .next {
+	    background: #d2d2d2 url(../img/next.png) no-repeat 50% 50%;
+	    background-size: 20px;
+	}
+
+}
+
+/*								                  	  TABLETS
+ ******************************************************************************************************************************/
+
+@media (min-width: 768px) {
+
+	.px_slideShow .prev,
+	.px_slideShow .next {
+	    width: 40px;
+	}
+
+	.px_slideShow .pxSlide {
+		width: calc(100% - 80px);
+	}
+
+}
+
+/*								                  	  LAP TOP
+ ******************************************************************************************************************************/
+
+@media (min-width: 992px) {
+	
+
+}
+
+
+/*								                  	  DESK TOP
+ ******************************************************************************************************************************/
+
+@media (min-width: 1200px) {
+	
+
+	
+}
