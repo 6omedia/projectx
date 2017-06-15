@@ -1,5 +1,4 @@
 
-
 .postbox {
     overflow: hidden;
 }
@@ -961,6 +960,10 @@ input[type="number"] {
     height: 25px;
     margin-bottom: 0px;
     cursor: pointer !important;
+}
+
+.ql-toolbar.ql-snow {
+    background: #fff;
 }
 
 /* Downloads Page */

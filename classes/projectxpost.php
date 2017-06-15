@@ -52,15 +52,12 @@
 			 	$ad .= ' data-ip="' . $ip . '"';
 			 	$ad .= ' data-advert_id="' . $ad_link[0]->id . '"';
 			 	$ad .= ' href="' . $ad_link[0]->top_link . '"><img src="' . $ad_link[0]->top_ad .'"></a>';
-				// $ad .= $content;
+				$content .= $ad;
 
-				echo $ad;
+				return $content;
+			}
 
-				return; 
-
-		 	}else{
-		 		return $content;
-		 	}
+			return $content; 
 
 		}
 
@@ -97,7 +94,7 @@
 				$ad_link = $wpdb->get_results("SELECT id, side_ad, side_link FROM " . $wpdb->prefix . "px_adverts WHERE outcome_id = $o_id AND funnel_position = '$funnel_position';");
 			
 			 	if(!empty($ad_link)){
-				 	$ad = '<a class="ad_track" href="' . $ad_link[0]->side_link . '" ';
+				 	$ad = '<a class="ad_track px_sidead" href="' . $ad_link[0]->side_link . '" ';
 				 	$ad .= ' data-post_id="' . get_the_ID() . '"';
 				 	$ad .= ' data-ip="' . $ip . '"';
 				 	$ad .= ' data-page_url="' . $page_url . '"';
@@ -126,18 +123,19 @@
 				$blockColor = $block->block_color;
 
 				if($blockColor != '#ffffff'){
-					echo '<div class="a_content_block" style="background: ' . $blockColor . '; padding: 10px;">';
+					$content .= '<div class="a_content_block" style="background: ' . $blockColor . '; padding: 10px;">';
 				}else{
-					echo '<div class="a_content_block">';
+					$content .= '<div class="a_content_block">';
 				}
 
 				if(method_exists($this->contentBlocks, 'output_' . $block->block_type))
-					call_user_func(array($this->contentBlocks, 'output_' . $block->block_type), $block->block_content);
+					$content .= call_user_func(array($this->contentBlocks, 'output_' . $block->block_type), $block->block_content);
 
-				echo '</div>';
+				$content .= '</div>';
 
 			}
 
+			return $content;
 
 		}
 
@@ -184,9 +182,9 @@
 			 	$ad .= '><img src="' . $ad_link[0]->bottom_ad .'"></a>';
 			 	$content .= $ad;
 				return $content;
-		 	}else{
-		 		return $content;
 		 	}
+
+		 	return $content;
 
 		}
 
@@ -400,6 +398,76 @@
 
 		}
 
+		function nextFunnelPos($fp){
+
+			$allFps = ['awareness', 'research', 'comparison', 'purchase'];
+			$pos = array_search($fp, $allFps);
+
+			$next_pos = $pos + 1;
+
+			if($next_pos >= sizeof($allFps)){
+				return 'end';
+			}else{
+				return $allFps[$next_pos];
+			}
+
+		}
+
+		function next_post_in_funnel($content){
+
+			$postId = get_the_ID();
+
+			$outcome = get_post_meta( $postId, 'px_outcome', true );
+			$funnel_position = get_post_meta( $postId, 'funnel_position', true );
+
+			$nextFp = $this->nextFunnelPos($funnel_position);
+
+			if($nextFp != 'end'){
+
+				$args = array(
+				   'meta_query' => array(
+						array(
+						   'key' => 'px_outcome',
+						   'value' => $outcome,
+						   'compare' => 'LIKE',
+						),
+						array(
+						   'key' => 'funnel_position',
+						   'value' => $nextFp,
+						   'compare' => 'LIKE',
+						)
+				   ),
+				   'numberposts' => 3
+				);
+				$posts = get_posts($args);
+
+				if(!empty($posts)){
+					
+					$nextPosts = '<div class="px_nextposts">';
+				
+						foreach ($posts as $post) { 
+
+							$nextPosts .= '<div class="px_nextpost">';
+								$nextPosts .= '<a href="' . $post->guid . '">';
+								$nextPosts .= '<img src="' . get_the_post_thumbnail_url($post->ID) . '">';
+								$nextPosts .= '<p>' . $post->post_title . '</p>';
+								$nextPosts .= '</a>';
+							$nextPosts .= '</div>';
+
+						}
+
+					$nextPosts .= '</div>';
+
+					return $content . $nextPosts;
+
+				}
+
+				return $content;
+
+			}
+
+		}
+
 		function __construct(){
 
 			$options = new PxOptions();
@@ -411,6 +479,8 @@
 			add_action( 'dynamic_sidebar_before', array($this, 'sideAd') );
 			add_filter( 'the_content', array($this, 'the_content_blocks'), 11 );
 			add_filter( 'the_content', array($this, 'bottomAd'), 12 );
+			add_filter( 'the_content', array($this, 'next_post_in_funnel'), 14 );
+
 			// add_filter( 'the_content', array($this, 'modalBox'), 12 );
 
 			add_action( 'load-post.php', array($this, 'meta_box_setup') );

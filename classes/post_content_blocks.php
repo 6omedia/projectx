@@ -3,32 +3,32 @@
 	class PostContentBlocks {
 
 		function output_title($block){
-			echo '<h1>' . json_decode($block) . '</h1>';
+			return '<h1>' . json_decode($block) . '</h1>';
 		}
 
 		function output_h2($block){
-			echo '<h2>' . json_decode($block) . '</h2>'; 
+			return '<h2>' . json_decode($block) . '</h2>'; 
 		}
 
 		function output_h3($block){
-			echo '<h3>' . json_decode($block) . '</h3>';
+			return '<h3>' . json_decode($block) . '</h3>';
 		}
 
 		function output_paragraph($block){ 
-			echo stripslashes(json_decode($block));
+			return stripslashes(json_decode($block));
 		}
 
 		function output_quote($block){ 
-			echo '<blockquote>' . json_decode($block) . '<blockquote>';
+			return '<blockquote>' . json_decode($block) . '<blockquote>';
 		}
 
 		function output_hr($block){
-			echo '<hr>';
+			return '<hr>';
 		}
 
 		function output_link($block){
 			$blockArray = json_decode($block);
-			echo '<a href="' . $blockArray->link_url . '">' . $blockArray->link_text . '</a>';
+			return '<a href="' . $blockArray->link_url . '">' . $blockArray->link_text . '</a>';
 		}
 
 		function output_preface($block){
@@ -39,9 +39,11 @@
 			$img_src = $blockArray->img_src;
 			$img_alt = $blockArray->img_alt;
 			
-			echo '<h2>' . $title . '</h2>';
-			echo $content;
-			echo '<img src="' . $img_src . '" alt="' . $img_alt . '">';
+			$preface = '<h2>' . $title . '</h2>';
+			$preface .=  $content;
+			$preface .= '<img src="' . $img_src . '" alt="' . $img_alt . '">';
+
+			return $preface;
 
 		}
 
@@ -51,35 +53,33 @@
 			$img_src = $blockArray->img_src;
 			$img_alt = $blockArray->img_alt;
 
-			echo '<img src="' . $img_src . '" alt="' . $img_alt . '">';
+			return '<img src="' . $img_src . '" alt="' . $img_alt . '">';
 
 		}
 
 		function output_embed($block){
-			echo stripslashes(json_decode($block));
+			return stripslashes(json_decode($block));
 		}
 
 		function output_gallery($block){
 			
 			$galleryArray = json_decode($block);
 
-			?>
+			$gallery = '<ul class="cb_gallery cols3 cb_gallery_style1">';
 
-			<ul class="cb_gallery cols3 cb_gallery_style1">
-
-			<?php foreach ($galleryArray as $img) {
+			foreach ($galleryArray as $img) {
 
 				$imgArray = explode('###', $img);
 
-				?>
+				$gallery .= '<li><img src="' . $imgArray[0] . '"alt="' . $imgArray[1] . '"></li>';
 
-				<li><img src="<?php echo $imgArray[0]; ?>" alt="<?php echo $imgArray[1]; ?>"></li>
+			}
 
-			<?php } ?>
+			$gallery .= '</ul>';
 
-			</ul>
+			return $gallery;
 
-		<?php }
+		}
 
 		function output_video($block){
 
@@ -89,7 +89,7 @@
 				)
 			);
 
-			echo $wpVideo;
+			return $wpVideo;
 			
 		}
 
@@ -114,8 +114,10 @@
 			 	$ad .= ' href="' . $advert[0]->ad_link . '"><img src="' . $advert[0]->ad_img .'">';
 			 	$ad .= '</a>';
 
-				echo $ad;
+				return $ad;
 			}
+
+			return '';
 
 		}
 
@@ -123,49 +125,72 @@
 
 			$jsonArray = json_decode(stripslashes($block));
 
-			?>
+			$slideShow = '<div class="px_slideShow">';
+				$slideShow .= '<div class="prev"></div>';
 
-			<div class="px_slideShow">
-				<div class="prev"></div>
+				foreach ($jsonArray as $slide) {
 
-				<?php foreach ($jsonArray as $slide) { ?>
+					$slide = json_decode($slide); 
 
-					<?php $slide = json_decode($slide); ?> 
+					$slideShow .= '<div class="pxSlide">';
+						$slideShow .= '<img src="' . $slide->imgSrc . '" alt="' . $slide->imgAlt . '">'; 
+						$slideShow .= '<div>';
+							$slideShow .= $slide->content;
+						$slideShow .= '</div>';
+					$slideShow .= '</div>';
 
-					<div class="pxSlide">
-						<img src="<?php echo $slide->imgSrc; ?>" alt="<?php echo 'dfvcs';// $slide->imgAlt; ?>"> 
-						<div>
-							<?php echo $slide->content; ?>
-						</div>
-					</div>
+				}
 
-				<?php } ?>
+				$slideShow .= '<div class="next"></div>';
+			$slideShow .= '</div>';
 
-				<div class="next"></div>
-			</div>
+			return $slideShow;
 			
-		<?php }
+		}
 
 		function output_rating($block){
 			
 			$rating = json_decode($block);
 
-			echo '<div class="px_rating">';
-				echo '<meta itemprop="worstRating" content="0">';
-				echo '<meta itemprop="ratingValue" content="' . $rating . '">';
-				echo '<meta itemprop="bestRating" content="10">';
-				echo '<ul class="starList">';
+			$theRating = '<div class="px_rating">';
+				$theRating .= '<meta itemprop="worstRating" content="0">';
+				$theRating .= '<meta itemprop="ratingValue" content="' . $rating . '">';
+				$theRating .= '<meta itemprop="bestRating" content="10">';
+				$theRating .= '<ul class="starList">';
 
 			  		for($i=1; $i<6; $i++){
 			  			if($i > $rating){
-			  				echo '<li style="filter: grayscale(100%)"></li>';
+			  				$theRating .= '<li style="filter: grayscale(100%)"></li>';
 			  			}else{
-			  				echo '<li></li>';
+			  				$theRating .= '<li></li>';
 			  			}
 			  		}
 
-	  			echo '</ul>';
-  			echo '</div>';
+	  			$theRating .= '</ul>';
+  			$theRating .= '</div>';
+
+  			return $theRating;
+
+		}
+
+		function allowDownload($file_url){
+
+			if (file_exists($file_url)) {
+
+			   header('Content-Description: File Transfer');
+			   header('Content-Type: application/octet-stream');
+			   header('Content-Disposition: attachment; filename='.basename($file_url));
+			   header('Expires: 0');
+			   header('Cache-Control: must-revalidate');
+			   header('Pragma: public');
+			   header('Content-Length: ' . filesize($file_url));
+			   ob_clean();
+			   flush();
+			   readfile($file_url);
+
+			   return true;
+			
+			}
 
 		}
 
@@ -177,6 +202,11 @@
 			$downloaded = false;
 
 			$downloadId = $downloadObj->download;
+			$emailRequired = '';
+
+			if(property_exists($downloadObj, 'email_required'))
+	        	$emailRequired = 'checked';
+
 			$download = '';
 
 			if($downloadId != ''){
@@ -196,22 +226,6 @@
 	  					'download_id' => $downloadId
 					));
 
-					// update 
-
-					// $result = mysql_query("UPDATE " . $wpdb->prefix . "'px_downloads' SET captured_emails = captured_emails + 1 WHERE id = '" . $downloadId . "'");
-
-					// $captured_emails = $wpdb->get_results("SELECT id FROM " . $wpdb->prefix . "px_downloads WHERE id='" . $downloadId . "'");
-
-					// $wpdb->update(
-					// 	$wpdb->prefix . 'px_downloads',
-					// 	array(
-					// 		'captured_emails' => intval($captured_emails) + 1
-					// 	),
-					// 	array(
-					// 		'id' => $downloadId
-					// 	)
-					// );
-
 				}
 
 				// todo: ad to user emails in px_users
@@ -219,45 +233,32 @@
 				$filename = $download[0]->filename;
 				$file_url = getcwd() . '/wp-content/plugins/projectx/downloads/' . $filename;
 
-				if (file_exists($file_url)) {
-
-				   header('Content-Description: File Transfer');
-				   header('Content-Type: application/octet-stream');
-				   header('Content-Disposition: attachment; filename='.basename($file_url));
-				   header('Expires: 0');
-				   header('Cache-Control: must-revalidate');
-				   header('Pragma: public');
-				   header('Content-Length: ' . filesize($file_url));
-				   ob_clean();
-				   flush();
-				   readfile($file_url);
-
-				   $downloaded = true;
-				
-				}
+				$download = $this->allowDownload($file_url);
 
 			}
 
-			if($download != ''){ ?>
+			if($download != ''){
 				
-				<div class="px_download">
+				$dw = '<div class="px_download">';
 					
-					<h3><?php echo $downloadObj->heading; ?></h3>
-					<div class="pxbtn pxdownloadbtn">Download</div>
+					$dw .= '<h3>' . $downloadObj->heading . '</h3>';
+					$dw .= '<div class="pxbtn pxdownloadbtn" data-emailreq="' . $emailRequired . '">Download</div>';
 
-					<form action="" method="post" class="form">
-						<input type="email" name="downloademail" class="px_email">
-						<button class="pxbtn pxenteremail" name="downloadid" value="<?php echo $downloadId; ?>" data-downloadid="<?php echo $downloadId; ?>">Enter</button>
-						<div class="px_spin"></div>
-					</form>
+					$dw .= '<form action="" method="post" class="form">';
+						$dw .= '<input type="email" name="downloademail" class="px_email">';
+						$dw .= '<button class="pxbtn pxenteremail" name="downloadid" value="' . $downloadId . '" data-downloadid="' . $downloadId . '">Enter</button>';
+						$dw .= '<div class="px_spin"></div>';
+					$dw .= '</form>';
 
-					<div class="px_thanks">Thankyou, your download has started</div>
+					$dw .= '<div class="px_thanks">Thankyou, your download has started</div>';
 
-					<p>Our blah de blah blah in accrodance with blah blahs <div class="px_spin"></div><span class="px_pp">privacy policy</span></p>
+					$dw .= '<p>Our blah de blah blah in accrodance with blah blahs <div class="px_spin"></div><span class="px_pp">privacy policy</span></p>';
 
-				</div>
+				$dw .= '</div>';
 
-			<?php }
+				return $dw;
+
+			}
 
 		}
 

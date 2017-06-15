@@ -117,10 +117,21 @@ jQuery(document).ready(function($){
 
 	$('.pxdownloadbtn').on('click', function(){
 
+		var emailReq = $(this).data('emailreq');
 		var form = $(this).next();
+		var thankyou = form.next('.px_thanks');
 
-		$(this).slideUp(200);
-		form.slideDown(200);
+		if(emailReq == 'checked'){
+
+			$(this).slideUp(200);
+			form.slideDown(200);
+		
+		}else{
+
+			form.submit();
+			thankyou.show();
+
+		}
 
 	});
 

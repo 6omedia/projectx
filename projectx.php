@@ -28,7 +28,7 @@ $options = array();
 
 class ProjectX {
 
-	var $plugin_url = WP_PLUGIN_URL . '/projectx';
+	private $plugin_url;
 
 	function setup_database_tables(){
 
@@ -432,7 +432,9 @@ class ProjectX {
 
 	}
 
-	function __construct(){
+	function __construct($plugin_url){
+
+		$this->plugin_url = $plugin_url;
 
 		register_activation_hook( __FILE__, array($this, 'setup_database_tables') );
 		add_action( 'admin_menu', array($this, 'add_plugin_menu') );
@@ -454,6 +456,6 @@ class ProjectX {
 
 }
 
-$projectx = new ProjectX();
+$projectx = new ProjectX($plugin_url);
 
 ?>

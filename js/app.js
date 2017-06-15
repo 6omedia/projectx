@@ -472,7 +472,7 @@ jQuery(document).ready(function($){
 
 	$('#content_blocks').on('change', 'input[type="color"]', function(){
 
-		var bg = 'linear-gradient(#fff 97px,' + $(this).val() + ' 97px)';
+		var bg = 'linear-gradient(#fff 97px,' + $(this).val() + ' 145px)';
 		$(this).parent().parent().css('background', bg);
 
 	});
