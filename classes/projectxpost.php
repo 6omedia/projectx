@@ -46,15 +46,17 @@
 			$ad_link = $wpdb->get_results("SELECT id, top_ad, top_link FROM " . $wpdb->prefix . "px_adverts WHERE outcome_id = $o_id AND funnel_position = '$funnel_position';");
 
 			if(!empty($ad_link)){
-			 	$ad = '<a class="ad_track"';
-			 	$ad .= ' data-post_id="' . $post_id . '"';
-			 	$ad .= ' data-page_url="' . $page_url . '"';
-			 	$ad .= ' data-ip="' . $ip . '"';
-			 	$ad .= ' data-advert_id="' . $ad_link[0]->id . '"';
-			 	$ad .= ' href="' . $ad_link[0]->top_link . '"><img src="' . $ad_link[0]->top_ad .'"></a>';
-				$content .= $ad;
+				if($ad_link[0]->top_link != ''){
+					$ad = '<a class="ad_track"';
+				 	$ad .= ' data-post_id="' . $post_id . '"';
+				 	$ad .= ' data-page_url="' . $page_url . '"';
+				 	$ad .= ' data-ip="' . $ip . '"';
+				 	$ad .= ' data-advert_id="' . $ad_link[0]->id . '"';
+				 	$ad .= ' href="' . $ad_link[0]->top_link . '"><img src="' . $ad_link[0]->top_ad .'"></a>';
+					$content = $ad . $content;
 
-				return $content;
+					return $content;
+				}
 			}
 
 			return $content; 
@@ -174,14 +176,16 @@
 			$ad_link = $wpdb->get_results("SELECT id, bottom_ad, bottom_link FROM " . $wpdb->prefix . "px_adverts WHERE outcome_id = $o_id AND funnel_position = '$funnel_position';");
 
 		    if(!empty($ad_link)){
-		    	$ad = '<a class="ad_track" href="' . $ad_link[0]->bottom_link . '"';
-		 		$ad .= ' data-post_id="' . get_the_ID() . '"';
-			 	$ad .= ' data-page_url="' . $page_url . '"';
-			 	$ad .= ' data-ip="' . $ip . '"';
-			 	$ad .= ' data-advert_id="' . $ad_link[0]->id . '"';
-			 	$ad .= '><img src="' . $ad_link[0]->bottom_ad .'"></a>';
-			 	$content .= $ad;
-				return $content;
+		    	if($ad_link[0]->bottom_link != ''){
+		    		$ad = '<a class="ad_track" href="' . $ad_link[0]->bottom_link . '"';
+			 		$ad .= ' data-post_id="' . get_the_ID() . '"';
+				 	$ad .= ' data-page_url="' . $page_url . '"';
+				 	$ad .= ' data-ip="' . $ip . '"';
+				 	$ad .= ' data-advert_id="' . $ad_link[0]->id . '"';
+				 	$ad .= '><img src="' . $ad_link[0]->bottom_ad .'"></a>';
+				 	$content .= $ad;
+					return $content;
+		    	}
 		 	}
 
 		 	return $content;
