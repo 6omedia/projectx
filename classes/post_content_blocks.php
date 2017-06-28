@@ -3,15 +3,15 @@
 	class PostContentBlocks {
 
 		function output_title($block){
-			return '<h1>' . json_decode($block) . '</h1>';
+			return '<h1>' . stripslashes(json_decode($block)) . '</h1>';
 		}
 
 		function output_h2($block){
-			return '<h2>' . json_decode($block) . '</h2>'; 
+			return '<h2>' . stripslashes(json_decode($block)) . '</h2>'; 
 		}
 
 		function output_h3($block){
-			return '<h3>' . json_decode($block) . '</h3>';
+			return '<h3>' . stripslashes(json_decode($block)) . '</h3>';
 		}
 
 		function output_paragraph($block){ 

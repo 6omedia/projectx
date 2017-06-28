@@ -111,15 +111,20 @@
 
 			$path = '../wp-content/plugins/projectx/downloads/' . $_POST['filename'];
 
-			if(unlink($path)){
+			$unlinked = unlink($path);
+
+			if($unlinked){
 
 				$response['success'] = '1';
+
+			}else{
 
 				// remove from database
 				global $wpdb; 
    				$wpdb->delete( $wpdb->prefix . 'px_downloads', array( 'id' => $_POST['downloadId'] ) );
-
 				$response['downloads'] = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "px_downloads;");
+
+				$response['success'] = '1';
 
 			}
 

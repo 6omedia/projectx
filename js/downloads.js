@@ -42,7 +42,6 @@ jQuery(document).ready(function($){
 
 			$('body').append(modal);
 
-			
 			$('.c_modal').on('click', function(e){
 
 				if($(e.target).is('.box') || $(e.target).is('button') || $(e.target).is('input')){
@@ -108,7 +107,7 @@ jQuery(document).ready(function($){
 	        // processData: false,
 	        success: function(response) {
 
-	        	console.log('response: ', response);
+	        	// console.log('response: ', response);
 	        	if(response.success == '1'){
 	        		displayNotice("Privacy Policy Updated", false);
 	        	}
@@ -119,6 +118,8 @@ jQuery(document).ready(function($){
 	}
 
 	function removeFile(filename, downloadId, callback){
+
+		// console.log('donlocd ', downloadId);
 
 		$.ajax({
 	        type: "post",
@@ -132,6 +133,8 @@ jQuery(document).ready(function($){
 	        // processData: false,
 	        success: function(response) {
 
+	        	console.log(response);
+
 	        	callback(response);
 
 	        	if(response.success == '1'){
@@ -139,7 +142,10 @@ jQuery(document).ready(function($){
 	        	}
 
          	},
-         	error: function(){
+         	error: function(a, b, c){
+
+         		console.log(a, b, c);
+
          		callback('failed');
          	}
       	});
@@ -238,7 +244,7 @@ jQuery(document).ready(function($){
 								<td>${data.downloads[i].captured_emails}</td>
 								<td>
 									<span class="export"></span>
-									<span class="minus-span"></span>
+									<span class="minus-span" data-download_id="${data.downloads[i].id}"></span>
 								</td>
 							</tr>`
 						);

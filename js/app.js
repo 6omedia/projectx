@@ -257,7 +257,7 @@ jQuery(document).ready(function($){
 
 		*/
 
-		var insertImgBtn = $('<div class="btn upload_img_btn">Insert Preface Image</div>');
+		var insertImgBtn = $('<div class="btn upload_img_btn">Insert Image</div>');
 		var imgInput = $('<input type="hidden" name="px_blocks[' + blockIndex + '][content][img_src]" class="cb_content img_src">');
 		var imgAlt = $('<input type="hidden" name="px_blocks[' + blockIndex + '][content][img_alt]" class="cb_content img_alt">');
 		var imgElement = $('<img class="imgBlockImg" src="../wp-content/plugins/projectx/img/landscape.png">');

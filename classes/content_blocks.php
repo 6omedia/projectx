@@ -131,7 +131,7 @@
 
 			?>
 
-			<input type="text" name="px_blocks[<?php echo $index; ?>][content]" class="cb_content title" value="<?php echo $content; ?>">
+			<input type="text" name="px_blocks[<?php echo $index; ?>][content]" class="cb_content title" value="<?php echo stripslashes($content); ?>">
 
 		<?php }
 
@@ -141,7 +141,7 @@
 
 			?>
 
-			<input type="text" name="px_blocks[<?php echo $index; ?>][content]" class="cb_content h2" value="<?php echo $content; ?>">
+			<input type="text" name="px_blocks[<?php echo $index; ?>][content]" class="cb_content h2" value="<?php echo stripslashes($content); ?>">
 
 		<?php }
 
@@ -151,7 +151,7 @@
 
 			?>
 
-			<input type="text" name="px_blocks[<?php echo $index; ?>][content]" class="cb_content h3" value="<?php echo $content; ?>">
+			<input type="text" name="px_blocks[<?php echo $index; ?>][content]" class="cb_content h3" value="<?php echo stripslashes($content); ?>">
 
 		<?php }
 
@@ -219,7 +219,7 @@
 			
 			<input type="hidden" name="px_blocks[<?php echo $index; ?>][content][img_src]" value="<?php echo $img_src; ?>" class="cb_content img_src">
 			<input type="hidden" name="px_blocks[<?php echo $index; ?>][content][img_alt]" value="<?php echo $img_alt; ?>" class="cb_content img_alt">
-			<div class="btn upload_img_btn">Insert Preface Image</div>
+			<div class="btn upload_img_btn">Insert Image</div>
 			<img class="imgBlockImg" src="<?php echo $img_src; ?>">
 			
 		<?php }

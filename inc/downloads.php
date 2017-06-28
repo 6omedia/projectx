@@ -99,10 +99,10 @@
 			$el = $wpdb->prefix . "px_email_list";
 
 			global $wpdb;
-			$downloads = $wpdb->get_results("SELECT $dl.filename, $dl.campaign, $dl.outcome, $dl.funnel_position, COUNT($el.email) AS captured_emails FROM " . $wpdb->prefix . "px_email_list RIGHT JOIN " . $wpdb->prefix . "px_downloads ON $dl.id = $el.download_id GROUP BY $dl.id");
+			$downloads = $wpdb->get_results("SELECT $dl.id, $dl.filename, $dl.campaign, $dl.outcome, $dl.funnel_position, COUNT($el.email) AS captured_emails FROM " . $wpdb->prefix . "px_email_list RIGHT JOIN " . $wpdb->prefix . "px_downloads ON $dl.id = $el.download_id GROUP BY $dl.id");
 
 			foreach ($downloads as $download) { ?>
-				
+
 				<tr>
 					<td>
 						<a href=""><?php echo $download->filename; ?></a>
