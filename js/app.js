@@ -289,6 +289,19 @@ jQuery(document).ready(function($){
 
 	});
 
+	$('#shortcode_cb').on('click', function(){
+
+		var contentArray = [
+			'<textarea class="embed shortcode" name="px_blocks[' + blockIndex + '][content]"></textarea>'
+		];
+
+		var contentBlock = new ContentBlock('shortcode', blockIndex, contentArray);
+		blockList.append(contentBlock.getBlock());
+
+		blockIndex++;
+
+	});
+
 	$('#gallery_cb').on('click', function(){
 
 		var imgUploadBtn = $('<div class="btn upload_gallery_img">Add Image to Gallery</div>');

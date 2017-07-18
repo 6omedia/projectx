@@ -348,8 +348,8 @@ input[type=radio] {
 }
 
 .contentblock_menu li div {
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
     border-radius: 100%;
     border: none;
     box-shadow: 0px 0px 7px rgba(0,0,0,0.4);
@@ -390,6 +390,9 @@ input[type=radio] {
 }
 #embed_cb {
     background: #00549e url('img/cb-code.png') no-repeat 50% 50%;   
+}
+#shortcode_cb {
+    background: #00549e url('img/shortcode.png') no-repeat 50% 50%;   
 }
 #gallery_cb {
     background: #00549e url('img/cb-gallery.png') no-repeat 50% 50%;

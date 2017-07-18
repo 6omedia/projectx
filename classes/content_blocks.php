@@ -61,6 +61,7 @@
 					<li><div data-blocktype="preface" id="preface_cb"></div><p>Preface</p></li>
 					<li><div data-blocktype="image" id="img_cb"></div><p>Image</p></li>
 					<li><div data-blocktype="embed" id="embed_cb"></div><p>Code Embed</p></li>
+					<li><div data-blocktype="shortcode" id="shortcode_cb"></div><p>Shortcode</p></li>
 					<li><div data-blocktype="gallery" id="gallery_cb"></div><p>Gallery</p></li>
 					<li><div data-blocktype="video" id="video_cb"></div><p>Video</p></li>
 					<li><div data-blocktype="advert" id="advert_cb"></div><p>Advert</p></li>
@@ -227,6 +228,12 @@
 		function output_embed($block, $index){ ?>
 			
 			<textarea class="embed" name="px_blocks[<?php echo $index; ?>][content]"><?php echo stripslashes(json_decode($block->block_content)); ?></textarea>
+
+		<?php }
+
+		function output_shortcode($block, $index){ ?>
+			
+			<textarea class="embed shortcode" name="px_blocks[<?php echo $index; ?>][content]"><?php echo stripslashes(json_decode($block->block_content)); ?></textarea>
 
 		<?php }
 

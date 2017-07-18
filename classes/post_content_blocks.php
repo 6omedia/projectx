@@ -61,6 +61,10 @@
 			return stripslashes(json_decode($block));
 		}
 
+		function output_shortcode($block){
+			return do_shortcode(stripslashes(json_decode($block)));
+		}
+
 		function output_gallery($block){
 			
 			$galleryArray = json_decode($block);
