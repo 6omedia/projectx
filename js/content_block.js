@@ -105,8 +105,8 @@
 			cancel: "input,textarea,button,select,option,p,span"
 		});
 
-		this.slideList.on('click', 'li p', function(){
-			thisSs.loadSlide($(this).prev('input').val(), $(this).parent().data('index'));
+		this.slideList.on('click', 'li', function(){
+			thisSs.loadSlide($(this).children('input').val(), $(this).parent().data('index'));
 		});
 
 		this.newSlideBtn.on('click', function(){
@@ -199,10 +199,12 @@
 		
 			var input = $("<input name='px_blocks[" + this.blockIndex + "][content][]' type='hidden' value='" + theJson + "'>");
 			
+			var grip = $('<div class="px_grip"></div>');
 			var p = $('<p>' + slideTitle + '</p>');
 			var span = $('<span>x</span>');
 
 			li.append(input);
+			li.append(grip);
 			li.append(p);
 			li.append(span);
 

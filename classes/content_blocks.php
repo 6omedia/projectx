@@ -322,6 +322,7 @@
 
 						echo "<li data-index='" . $i . "'>";
 						echo "<input name='px_blocks[" . $index . "][content][]' type='hidden' value='" . stripslashes($slide) . "'>";
+						echo "<div class='px_grip'></div>";
 						echo "<p>" . $slideObj->title . "</p>";
 						echo "<span>x</span>";
 						echo "</li>";

@@ -929,6 +929,28 @@ textarea.preface {
     margin-top: 10px;
 }
 
+.slideList li {
+    cursor: pointer !important;
+}
+
+.px_grip {
+    background: url('img/dot-matrix.png') no-repeat 50%;
+    cursor: move;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+
+.px_grip div {
+    display: inline-block;
+    width: 3px;
+    background: #333;
+    height: 3px;
+    border-radius: 100%;
+}
+
 .content_block .right .imgBlockImg {
     margin-top: 10px;
     margin-bottom: 20px;

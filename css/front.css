@@ -1,10 +1,13 @@
 .a_content_block {
     margin: 10px 0px;
-    white-space: -moz-pre-wrap; /* Firefox */
-    white-space: -pre-wrap; /* ancient Opera */
-    white-space: -o-pre-wrap; /* newer Opera */
-    white-space: pre-wrap; /* Chrome; W3C standard */
-    word-wrap: break-word; /* IE */
+}
+
+.a_content_block p {
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .a_content_block ul li {

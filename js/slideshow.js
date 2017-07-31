@@ -62,7 +62,7 @@ jQuery(document).ready(function($){
 			var slides = $(this).children('.pxSlide');
 			var prev = $(this).children('.prev');
 			var next = $(this).children('.next');
-			console.log('Prev ', prev);
+			// console.log('Prev ', prev);
 			var ss = new SlideShowFront($(this), slides, prev, next);
 
 		});
