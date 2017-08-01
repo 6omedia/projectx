@@ -113,7 +113,11 @@ jQuery(document).ready(function($){
 
 	setUpSlideShows();
 
-	// Downloads
+	/************************************************ 
+
+		Downloads
+
+	*************************************************/
 
 	$('.pxdownloadbtn').on('click', function(){
 
@@ -199,32 +203,115 @@ jQuery(document).ready(function($){
 		form.hide();
 		thankyou.show();
 
-		// window.location.href = 'downloads';
+	});
 
-		// $.ajax({
-	 //        type: "post",
-	 //        dataType: "json",
-	 //        url: frontAjax.ajaxurl,
-	 //        data: {
-	 //        	action: "download_file",
-	 //        	download_id: download_id,
-	 //        	email: email
-	 //        },
-	 //        success: function(data) {
+	/************************************************ 
 
-	 //        	console.log(data);
+		Gallery
 
-	 //        	if(data.success == 1){
-	 //        		// hide spin
-		// 			// start btn
-	 //        	}
+	*************************************************/
 
-  //        	},
-  //        	error: function(a,b,c){
-  //        		console.log(a,b,c);
-  //        	}
-  //     	});
+	function LightBox(){
+		var thisLb = this;
+		this.imgs = $('.cb_gallery img');
+		this.imgIndex = null;
+		this.modal = $('<div class="cb_lightbox"></div>');
+		this.box = $('<div class="box"></div>');
+		this.left = $('<div class="left">');
+		this.right = $('<div class="right">');
 
+		this.image = $('<img src="">');
+
+		this.left.on('click', function(){
+			thisLb.prev();
+		});
+
+		this.right.on('click', function(){
+			thisLb.next();
+		});
+
+		this.box.append(this.left);
+		this.box.append(this.image);
+		this.box.append(this.right);
+		this.thumbnails = this.thumbnails();
+		this.box.append(this.thumbnails);
+		this.modal.append(this.box);
+		this.modal.on('click', function(e){
+			if($(e.target).is($('.left')) || $(e.target).is($('.right')) || $(e.target).is($('img')) ){
+				return e.preventDefault();
+			}
+			$(this).hide();
+		});
+		this.modal.hide();
+		$('body').append(this.modal);
+	}
+
+	LightBox.prototype.thumbnails = function(){
+
+		var thisLb = this;
+
+		var ul = $('<ul class="list cb_gallerythumbnails"></ul>');
+
+		for(i=0; i<thisLb.imgs.length; i++){
+			ul.append('<li><img src="' + $(thisLb.imgs[i]).attr('src') + '"></li>');
+		}
+
+		ul.children('li').on('click', function(){
+			thisLb.openImg($(this).index());
+		});
+
+		return ul;
+
+	};
+
+	LightBox.prototype.prev = function(){
+
+		if(this.imgIndex > 0){
+			this.openImg(this.imgIndex - 1);
+		}
+
+	};
+
+	LightBox.prototype.next = function(){
+
+		if(this.imgIndex <= this.imgs.length - 1){
+			this.openImg(this.imgIndex + 1);
+		}
+
+	};
+
+	LightBox.prototype.openImg = function(index){
+
+		this.imgIndex = index;
+
+		if(this.imgIndex <= 0){
+			this.left.hide();
+		}else{
+			this.left.show();
+		}
+
+		if(this.imgIndex >= this.imgs.length - 1){
+			this.right.hide();
+		}else{
+			this.right.show();
+		}
+
+		var lis = $(this.thumbnails).children();
+		lis.removeClass('cb_current_img');
+
+		var currentImg = lis.get(this.imgIndex);
+
+		$(currentImg).addClass('cb_current_img');
+
+		this.image.attr('src', $(this.imgs[this.imgIndex]).attr('src'));
+		this.modal.fadeIn(300);
+
+	};
+
+	var lightBox = new LightBox();
+
+	$('.cb_gallery img').on('click', function(e){
+		lightBox.openImg($(this).parent().index());
 	});
 
 });
