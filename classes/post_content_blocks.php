@@ -127,14 +127,14 @@
 
 		function output_slideshow($block){ 
 
-			$jsonArray = json_decode(stripslashes($block));
+			$jsonArray = json_decode($block);
 
 			$slideShow = '<div class="px_slideShow">';
 				$slideShow .= '<div class="prev"></div>';
 
 				foreach ($jsonArray as $slide) {
 
-					$slide = json_decode($slide); 
+					$slide = json_decode(stripslashes($slide)); 
 
 					$slideShow .= '<div class="pxSlide">';
 						$slideShow .= '<img src="' . $slide->imgSrc . '" alt="' . $slide->imgAlt . '">'; 

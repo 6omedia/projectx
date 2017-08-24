@@ -22,52 +22,52 @@
 }
 
 .px_error {
-	color: red;
+    color: red;
 }
 
 .px_invalid {
-	border: solid 1px red !important;
+    border: solid 1px red !important;
 }
 
 .px_thanks {
-	display: none;
-	background: #585858;
+    display: none;
+    background: #585858;
     padding: 20px;
     color: #fff;
     font-size: 20px;
 }
 
 .px_sidead {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 /* Galley Styles */
 
 .cb_gallery {
-	list-style: none;
-	margin-top: 10px;
-	margin-left: 0px;
-	overflow: hidden;
+    list-style: none;
+    margin-top: 10px;
+    margin-left: 0px;
+    overflow: hidden;
 }
 
 .cols2 li {
-	width: 50%;
-	float: left;
+    width: 50%;
+    float: left;
 }
 
 .cols3 li {
-	width: 33.333%;
-	float: left;
+    width: 33.333%;
+    float: left;
 }
 
 .cols4 li {
-	width: 25%;
-	float: left;
+    width: 25%;
+    float: left;
 }
 
 .cols5 li {
-	width: 20%;
-	float: left;
+    width: 20%;
+    float: left;
 }
 
 .cb_gallery_style1 li {
@@ -86,6 +86,7 @@
     top: 0px;
     text-align: center;
     padding-top: 110px;
+    z-index: 2;
 }
 
 .cb_lightbox img {
@@ -144,7 +145,7 @@
 
 .px_slideShow .prev,
 .px_slideShow .next {
-	background: #d2d2d2;
+    background: #d2d2d2;
     width: 100%;
     cursor: pointer;
     transition: 0.3s;
@@ -153,7 +154,7 @@
 
 .px_slideShow .prev:hover,
 .px_slideShow .next:hover {
-	opacity: 0.8;
+    opacity: 0.8;
 }
 
 .px_slideShow .prev {
@@ -164,8 +165,8 @@
 }
 
 .px_slideShow .pxSlide {
-	float: left;
-	width: 100%;
+    float: left;
+    width: 100%;
 }
 
 .px_slideShow .next {
@@ -206,7 +207,7 @@
 }
 
 .px_download p {
-	margin: 10px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;
 }
 
 .pxbtn {
@@ -222,34 +223,34 @@
 }
 
 .pxdownloadbtn {
-	background: #ffd97f;
-	margin-bottom: 10px;
-	background-image: url('../img/download.png');
-	background-repeat: no-repeat;
-	background-position: 95% 48%;
-	padding: 5px 35px 5px 10px;
+    background: #ffd97f;
+    margin-bottom: 10px;
+    background-image: url('../img/download.png');
+    background-repeat: no-repeat;
+    background-position: 95% 48%;
+    padding: 5px 35px 5px 10px;
 }
 
 .px_download .form {
-	display: none;
+    display: none;
 }
 
 .px_download .form input {
-	display: inline-block;
+    display: inline-block;
     width: 80%;
 }
 
 .px_download .form button {
-	width: 19%;
+    width: 19%;
 }
 
 .px_download span {
-	text-decoration: underline;
+    text-decoration: underline;
     cursor: pointer;
 }
 
 .c_modal {
-	position: fixed;
+    position: fixed;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.8);
@@ -258,7 +259,7 @@
 }
 
 .c_modal .box {
-	background: #ffffff;
+    background: #ffffff;
     width: 800px;
     padding: 20px;
     margin: 80px auto;
@@ -266,7 +267,7 @@
 }
 
 .c_modal p {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .px_nextposts {
@@ -318,45 +319,47 @@
 
 @media (min-width: 500px) {
 
-	.px_slideShow {
-		display: flex;
-	}
+    .px_slideShow {
+        display: flex;
+        margin: 0px auto;
+    }
 
-	.px_slideShow .prev,
-	.px_slideShow .next {
-	    width: 5%;
-		height: auto;
-	}
+    .px_slideShow .prev,
+    .px_slideShow .next {
+        width: 5%;
+        height: auto;
+    }
 
-	.px_slideShow .prev {
-	    background: #d2d2d2 url(../img/prev.png) no-repeat 50% 50%;
-	    background-size: 20px;
-	}
+    .px_slideShow .prev {
+        /*background: #d2d2d2 url(../img/prev.png) no-repeat 50% 50%;*/
+        background: url(../img/prev.png) no-repeat 50% 50%;
+        background-size: 20px;
+    }
 
-	.px_slideShow .pxSlide {
-		width: 90%;
-	}
+    .px_slideShow .pxSlide {
+        width: 90%;
+    }
 
-	.px_slideShow .next {
-	    background: #d2d2d2 url(../img/next.png) no-repeat 50% 50%;
-	    background-size: 20px;
-	}
+    .px_slideShow .next {
+        background: url(../img/next.png) no-repeat 50% 50%;
+        background-size: 20px;
+    }
 
 }
 
-/*								                  	  TABLETS
+/*                                                    TABLETS
  ******************************************************************************************************************************/
 
 @media (min-width: 768px) {
 
-	.px_slideShow .prev,
-	.px_slideShow .next {
-	    width: 40px;
-	}
+    .px_slideShow .prev,
+    .px_slideShow .next {
+        width: 40px;
+    }
 
-	.px_slideShow .pxSlide {
-		width: calc(100% - 80px);
-	}
+    .px_slideShow .pxSlide {
+        width: calc(100% - 80px);
+    }
 
     .cb_lightbox .left,
     .cb_lightbox .right {
@@ -365,20 +368,20 @@
 
 }
 
-/*								                  	  LAP TOP
+/*                                                    LAP TOP
  ******************************************************************************************************************************/
 
 @media (min-width: 992px) {
-	
+    
 
 }
 
 
-/*								                  	  DESK TOP
+/*                                                    DESK TOP
  ******************************************************************************************************************************/
 
 @media (min-width: 1200px) {
-	
+    
 
-	
+    
 }

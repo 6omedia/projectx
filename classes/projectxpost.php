@@ -242,7 +242,7 @@
 		 	<select name="px_campaign" id="px_campaign_select">
 		 		<option value="<?php echo get_post_meta( $object->ID, 'px_campaign', true ); ?>">- select campaign -</option>
 
-		 		<?php 
+		 		<?php
 
 		 			global $wpdb;
 					$all_campaigns = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "campaigns;");
