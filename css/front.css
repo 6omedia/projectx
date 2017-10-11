@@ -141,15 +141,27 @@
     width: 100%;
     max-width: 680px;
     border-radius: 3px;
+    position: relative;
 }
 
-.px_slideShow .prev,
+/*.px_slideShow .prev,
 .px_slideShow .next {
     background: #d2d2d2;
     width: 100%;
     cursor: pointer;
     transition: 0.3s;
     height: 30px;
+}*/
+
+.px_slideShow .prev,
+.px_slideShow .next {
+    background: #d2d2d2;
+    width: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    height: 30px;
+    position: absolute;
+    top: 50%;
 }
 
 .px_slideShow .prev:hover,
@@ -162,6 +174,7 @@
     background: #d2d2d2 url(../img/prevMob.png) no-repeat 5% 50%;
     background-size: 20px;
     opacity: 0.3;
+    left: 0px;
 }
 
 .px_slideShow .pxSlide {
@@ -174,6 +187,7 @@
     background: #d2d2d2 url(../img/nextMob.png) no-repeat 95% 50%;
     background-size: 20px;
     opacity: 0.3;
+    right: 0px;
 }
 
 .colorPadding {
@@ -328,6 +342,7 @@
     .px_slideShow .next {
         width: 5%;
         height: auto;
+        position: relative;
     }
 
     .px_slideShow .prev {

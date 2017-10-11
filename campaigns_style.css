@@ -1,4 +1,3 @@
-
 .postbox {
     overflow: hidden;
 }
@@ -1051,6 +1050,38 @@ input[type="number"] {
 .formCol {
     width: 400px;
     float: left;
+}
+
+.widget-inside .spin {
+    background: rgba(255, 255, 255, 0.87) url(img/spin.gif) no-repeat 50%;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+.widget-content .px {
+    padding: 10px 0px;
+}
+
+.outcomeSelectCont {
+    display: none;
+}
+
+.adWidgetSelect,
+.adWidgetOutcomes {
+    width: 100%;
+}
+
+.px_widget_ads img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.px_widget_ads .selected {
+    border: solid 2px blue;
 }
 
 /**** Loader ****/

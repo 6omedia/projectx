@@ -403,6 +403,14 @@ class ProjectX {
 
 	    }
 
+	    if( $hook == 'widgets.php' ){
+
+	    	wp_register_script( "adwidget", $this->plugin_url . '/js/adwidget.js', array('jquery'));
+		    wp_localize_script( "adwidget", 'adwidgetAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+		    wp_enqueue_script( "adwidget" );
+
+	    }
+
 	    if(isset($_GET['page'])){
 
 	    	if( $_GET['page'] == 'funnel_stats' ){
@@ -432,6 +440,39 @@ class ProjectX {
 
 	}
 
+	function register_ad_widget() {
+		require('classes/adwidget.php');
+		register_widget( 'ProjectXAdWidget' );
+	}
+
+	function get_outcomes(){
+
+		$campaign_id = $_POST['campaign'];
+
+		global $wpdb;
+
+		$outcomes = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'outcomes WHERE campaign_id=' . $campaign_id);
+
+		$response['outcomes'] = $outcomes;
+		echo json_encode($response);
+		wp_die();
+
+	}
+
+	function get_ads(){
+
+		$outcome_id = $_POST['outcome'];
+
+		global $wpdb;
+
+		$ads = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'px_adverts WHERE outcome_id=' . $outcome_id);
+
+		$response['ads'] = $ads;
+		echo json_encode($response);
+		wp_die();
+
+	}
+
 	function __construct($plugin_url){
 
 		$this->plugin_url = $plugin_url;
@@ -442,6 +483,11 @@ class ProjectX {
 		add_action( 'admin_head', array($this, 'campaigns_styles') );
 		add_action( 'admin_enqueue_scripts', array($this, 'enqueue_media_uploader') );
 		add_action( 'wp_enqueue_scripts', array($this, 'front_end_cb_styles') );
+		add_action( 'widgets_init', array($this, 'register_ad_widget') );
+		add_action( 'wp_ajax_get_ads', array($this, 'get_ads') );
+		add_action( 'wp_ajax_nopriv_get_ads', array($this, 'get_ads' ) );
+		add_action( 'wp_ajax_get_outcomes', array($this, 'get_outcomes') );
+		add_action( 'wp_ajax_nopriv_get_outcomes', array($this, 'get_outcomes' ) );
 
 		$projectx_page = new ProjectXPost();
 		$content_blocks = new ContentBlocks();
