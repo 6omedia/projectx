@@ -473,6 +473,29 @@ class ProjectX {
 
 	}
 
+	function jollyFrogCode(){
+
+		$options = get_option('px_options');
+
+		if(isset($options['px_jollyfrog_api']) && $options['px_jollyfrog_api'] != ''){
+			$apikey = $options['px_jollyfrog_api'];	
+
+			?>
+
+			<script type="text/javascript" src="https://clientjs.org/js/client.min.js"></script>
+			<script type="text/javascript" src="http://eveningbastion.6omedia.co.uk/static/js/jollyfrog.min.js"></script>
+			<script>
+				
+			(function(d,j,ak){d.addEventListener("DOMContentLoaded", function(){var c = new ClientJS();j.doIt(ak,c);});}(document, new JFrog("http://eveningbastion.6omedia.co.uk"),"<?php echo $apikey; ?>"));
+
+			</script>
+
+			<?php
+
+		}
+
+	}
+
 	function __construct($plugin_url){
 
 		$this->plugin_url = $plugin_url;
@@ -488,6 +511,7 @@ class ProjectX {
 		add_action( 'wp_ajax_nopriv_get_ads', array($this, 'get_ads' ) );
 		add_action( 'wp_ajax_get_outcomes', array($this, 'get_outcomes') );
 		add_action( 'wp_ajax_nopriv_get_outcomes', array($this, 'get_outcomes' ) );
+		add_action( 'wp_head', array($this, 'jollyFrogCode') );
 
 		$projectx_page = new ProjectXPost();
 		$content_blocks = new ContentBlocks();

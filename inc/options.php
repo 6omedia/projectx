@@ -15,6 +15,7 @@
 
 		$cb_post_types = [];
 		$campaigns_post_types = [];
+		$jollyfrog_api = '';
 
 		if(isset($_POST['px_options_submitted'])){
 			$hidden_field = esc_html($_POST['px_options_submitted']);
@@ -25,6 +26,9 @@
 
 				if(isset($_POST['campaigns_post_types']))
 					$options['px_campaigns_post_types'] = $_POST['campaigns_post_types'];
+
+				if(isset($_POST['jollyfrog_api']))
+					$options['px_jollyfrog_api'] = $_POST['jollyfrog_api'];
 				
 				update_option('px_options', $options);
 
@@ -44,6 +48,12 @@
 			if(isset($options['px_campaigns_post_types'])){
 				if($options['px_campaigns_post_types'] != ''){
 					$campaigns_post_types = $options['px_campaigns_post_types'];
+				}
+			}
+
+			if(isset($options['px_jollyfrog_api'])){
+				if($options['px_jollyfrog_api'] != ''){
+					$jollyfrog_api = $options['px_jollyfrog_api'];
 				}
 			}
 
@@ -123,8 +133,11 @@
 
 		</div>
 
+		<div class="jollyFrog">
+			<p>If you have an account with JollyFrog you can add your API key below</p>
+			<input type="text" name="jollyfrog_api" placeholder="JollyFrog API Key" value="<?php echo $jollyfrog_api; ?>">
+		</div>
 		<button type="submit">Save Options</button>
-
 	</form>
 
 	<a href="admin.php?page=campaigns">Create and manage campaigns</a><br/>

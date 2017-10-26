@@ -41,10 +41,6 @@ button {
     border-radius: 5px;
 }
 
-h1 {
-	/*color: blue;*/
-}
-
 .px_container .pxtable {
     text-align: left;
     border-collapse: collapse;
@@ -90,6 +86,11 @@ h1 {
 .px_container input, 
 .px_container textarea {
 	width: 380px;
+}
+
+.jollyFrog {
+    clear: both;
+    margin: 20px 0px;
 }
 
 .c_list li a {
