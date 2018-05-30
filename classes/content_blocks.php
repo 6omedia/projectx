@@ -215,6 +215,7 @@
 			$blockArray = json_decode($block->block_content);
 			$img_src = $blockArray->img_src;
 			$img_alt = $blockArray->img_alt;
+			$img_link = $blockArray->img_link;
 
 			?>
 			
@@ -222,6 +223,7 @@
 			<input type="hidden" name="px_blocks[<?php echo $index; ?>][content][img_alt]" value="<?php echo $img_alt; ?>" class="cb_content img_alt">
 			<div class="btn upload_img_btn">Insert Image</div>
 			<img class="imgBlockImg" src="<?php echo $img_src; ?>">
+			<input type="text" value="<?php echo $img_link; ?>" placeholder="Url goes here if image should be a link..." class="px_smallinput" name="px_blocks[<?php echo $index; ?>][content][img_link]">
 			
 		<?php }
 

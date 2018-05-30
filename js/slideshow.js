@@ -119,7 +119,9 @@ jQuery(document).ready(function($){
 
 	*************************************************/
 
-	$('.pxdownloadbtn').on('click', function(){
+	$('.pxdownloadbtn').on('click', function(e){
+
+		e.preventDefault();
 
 		var emailReq = $(this).data('emailreq');
 		var form = $(this).next();

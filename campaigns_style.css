@@ -11,6 +11,12 @@
 	margin: 0px;
 }
 
+.px_smallinput {
+    display: block;
+    width: 360px;
+    margin-top: 20px;
+}
+
 .btn,
 button {
     background: #38b9d8;

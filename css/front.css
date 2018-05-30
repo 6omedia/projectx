@@ -218,6 +218,7 @@
     padding: 20px;
     border: solid 1px #dedede;*/
     text-align: center;
+    padding-top: 35px;
 }
 
 .px_download p {
@@ -239,10 +240,9 @@
 .pxdownloadbtn {
     background: #ffd97f;
     margin-bottom: 10px;
-    background-image: url('../img/download.png');
     background-repeat: no-repeat;
     background-position: 95% 48%;
-    padding: 5px 35px 5px 10px;
+    padding: 5px 10px 5px 10px;
 }
 
 .px_download .form {

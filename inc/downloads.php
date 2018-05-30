@@ -2,6 +2,14 @@
 
 	$response = $this->downloadManager->addDownload();
 
+	// if(isset($_POST['csvdownload'])){
+	// 	$this->downloadManager->email_csv_download(array(
+	// 	  array(1,2,3,4), // this array is going to be the first row
+	// 	  array(1,2,3,4)), // this array is going to be the second row
+	// 	  "numbers.csv"
+	// 	);
+	// }
+
 ?>
 
 <div class="px_container" id="downloadsPage">
@@ -120,8 +128,11 @@
 						<?php echo $download->captured_emails; ?>
 					</td>
 					<td>
-						<span class="export"></span>
-						<span class="minus-span" data-download_id="<?php echo $download->id; ?>"></span>
+						<form action="<?php echo home_url(); ?>/wp-content/plugins/projectx/csv_email.php" method="POST">
+							<input type="hidden" name="csvdownload" value="<?php echo $download->id; ?>">
+							<button class="export"></button>
+							<span class="minus-span" data-download_id="<?php echo $download->id; ?>"></span>
+						</form>
 					</td>
 				</tr>
 		

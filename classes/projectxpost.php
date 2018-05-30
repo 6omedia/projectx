@@ -480,7 +480,7 @@
 			$this->contentBlocks = new PostContentBlocks();
 
 			add_filter( 'the_content', array($this, 'topAd'), 10 );
-			add_action( 'dynamic_sidebar_before', array($this, 'sideAd') );
+			// add_action( 'dynamic_sidebar_before', array($this, 'sideAd') );
 			add_filter( 'the_content', array($this, 'the_content_blocks'), 11 );
 			add_filter( 'the_content', array($this, 'bottomAd'), 12 );
 			add_filter( 'the_content', array($this, 'next_post_in_funnel'), 14 );

@@ -53,7 +53,21 @@
 			$img_src = $blockArray->img_src;
 			$img_alt = $blockArray->img_alt;
 
-			return '<img src="' . $img_src . '" alt="' . $img_alt . '">';
+			$theImg = '';
+
+			if(array_key_exists('img_link', $blockArray)){
+				if($blockArray->img_link != ''){
+					$theImg = '<a href="' . $blockArray->img_link . '">';
+					$theImg .= '<img src="' . $img_src . '" alt="' . $img_alt . '">';
+					$theImg .= '</a>';
+				}else{
+					$theImg = '<img src="' . $img_src . '" alt="' . $img_alt . '">';
+				}
+			}else{
+				$theImg = '<img src="' . $img_src . '" alt="' . $img_alt . '">';
+			}
+
+			return $theImg;
 
 		}
 
@@ -179,22 +193,14 @@
 
 		function allowDownload($file_url){
 
-			if (file_exists($file_url)) {
+			$file = "http://example.com/go.exe"; 
 
-			   header('Content-Description: File Transfer');
-			   header('Content-Type: application/octet-stream');
-			   header('Content-Disposition: attachment; filename='.basename($file_url));
-			   header('Expires: 0');
-			   header('Cache-Control: must-revalidate');
-			   header('Pragma: public');
-			   header('Content-Length: ' . filesize($file_url));
-			   ob_clean();
-			   flush();
-			   readfile($file_url);
+			// header("Content-Description: File Transfer"); 
+			// header("Content-Type: application/octet-stream"); 
+			// header("Content-Disposition: attachment; filename='" . basename($file_url) . "'"); 
 
-			   return true;
-			
-			}
+			readfile ($file_url);
+			exit(); 
 
 		}
 
@@ -204,6 +210,7 @@
 
 			$downloadObj = json_decode($block);
 			$downloaded = false;
+			$download_url = NULL;
 
 			$downloadId = $downloadObj->download;
 			$emailRequired = '';
@@ -211,7 +218,7 @@
 			if(property_exists($downloadObj, 'email_required'))
 	        	$emailRequired = 'checked';
 
-			$download = '';
+	        $download = NULL;
 
 			if($downloadId != ''){
 				$download = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "px_downloads WHERE id='" . $downloadId . "'");
@@ -235,28 +242,38 @@
 				// todo: ad to user emails in px_users
 
 				$filename = $download[0]->filename;
-				$file_url = getcwd() . '/wp-content/plugins/projectx/downloads/' . $filename;
-
-				$download = $this->allowDownload($file_url);
+				$file_url = '/wp-content/plugins/projectx/downloads/' . $filename;
+				$download_url = $file_url;
 
 			}
 
-			if($download != ''){
-				
-				$dw = '<div class="px_download">';
+			if($download){
+
+				$current_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+				$dw = '<div class="px_download" id="download_' . $downloadId . '">';
 					
-					$dw .= '<h3>' . $downloadObj->heading . '</h3>';
-					$dw .= '<div class="pxbtn pxdownloadbtn" data-emailreq="' . $emailRequired . '">Download</div>';
+					if(!$download_url){
 
-					$dw .= '<form action="" method="post" class="form">';
-						$dw .= '<input type="email" name="downloademail" class="px_email">';
-						$dw .= '<button class="pxbtn pxenteremail" name="downloadid" value="' . $downloadId . '" data-downloadid="' . $downloadId . '">Enter</button>';
-						$dw .= '<div class="px_spin"></div>';
-					$dw .= '</form>';
+						$dw .= '<h3>' . $downloadObj->heading . '</h3>';
+						$dw .= '<div class="pxbtn pxdownloadbtn" data-emailreq="' . $emailRequired . '" id="dothedownload">Download</div>';
 
-					$dw .= '<div class="px_thanks">Thankyou, your download has started</div>';
+						$dw .= '<form action="' . $current_url . '#download_' . $downloadId . '" method="post" class="form">';
+							$dw .= '<input type="hidden" name="download_url" value="' . $download_url . '">';
+							$dw .= '<input type="email" name="downloademail" class="px_email">';
+							$dw .= '<button class="pxbtn pxenteremail" name="downloadid" data-downloadurl="' . $download[0]->filename . '" value="' . $downloadId . '" data-downloadid="' . $downloadId . '">Enter</button>';
+							$dw .= '<div class="px_spin"></div>';
+						$dw .= '</form>';
 
-					$dw .= '<p>Our blah de blah blah in accrodance with blah blahs <div class="px_spin"></div><span class="px_pp">privacy policy</span></p>';
+						$dw .= '<div class="px_thanks">Your email is being submitted...</div>';
+
+						$dw .= '<p><span class="px_pp">Privacy Policy</span></p>';
+
+					}
+
+					if($download_url){
+						$dw .= '<a href="' . home_url() . $download_url . '" style="padding-top: 50px;">Thankyou, click here if your download has not started</a>';
+					}
 
 				$dw .= '</div>';
 

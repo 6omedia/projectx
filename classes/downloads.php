@@ -165,6 +165,25 @@
 
 		}
 
+		function emailCsvAgain() {
+			$list = array (
+			    array('aaa', 'bbb', 'ccc', 'dddd'),
+			    array('123', '456', '789'),
+			    array('"aaa"', '"bbb"')
+			);
+
+			ob_end_clean();
+
+			$fp = fopen('file.csv', 'w');
+
+			foreach ($list as $fields) {
+			    fputcsv($fp, $fields);
+			}
+
+			fclose($fp);
+			// exit();
+		}
+
 		function __construct(){
 
 			add_action( 'wp_ajax_update_privacypolicy', array($this, 'update_privacypolicy') );

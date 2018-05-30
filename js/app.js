@@ -258,6 +258,8 @@ jQuery(document).ready(function($){
 		*/
 
 		var insertImgBtn = $('<div class="btn upload_img_btn">Insert Image</div>');
+		// var label = $('<label>If this image needs to link somewhere paste the url below</label>');
+		var inputLink = $('<input type="text" placeholder="Url goes here if image should be a link..." class="px_smallinput" name="px_blocks[' + blockIndex + '][content][img_link]">');
 		var imgInput = $('<input type="hidden" name="px_blocks[' + blockIndex + '][content][img_src]" class="cb_content img_src">');
 		var imgAlt = $('<input type="hidden" name="px_blocks[' + blockIndex + '][content][img_alt]" class="cb_content img_alt">');
 		var imgElement = $('<img class="imgBlockImg" src="../wp-content/plugins/projectx/img/landscape.png">');
@@ -266,7 +268,8 @@ jQuery(document).ready(function($){
 			imgInput,
 			imgAlt,
 			insertImgBtn,
-			imgElement
+			imgElement,
+			inputLink
 		];
 
 		var contentBlock = new ContentBlock('image', blockIndex, contentArray);
