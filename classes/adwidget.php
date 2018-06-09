@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ProjectXAdWidget extends WP_Widget {
 
@@ -17,15 +17,79 @@ class ProjectXAdWidget extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 
-		?>
+		$link = $instance['pxad_link'];
+		$img = $instance['pxad_img'];
 
-		<div class="px_sidead">
-			<a href="<?php echo $instance['pxad_link']; ?>">
-				<img src="<?php echo $instance['pxad_img']; ?>">
-			</a>
-		</div>
+		if(!$link || !$img){
 
-		<?php
+		//	$projectx_page->sideAd();
+
+
+			/* START OF SIDEAD */
+
+			// check if campaigns
+			global $post;
+
+			if(!is_single()){
+				return;
+			}
+
+			$options = new PxOptions();
+
+			if(!in_array($post->post_type, $options->get_campaigns_post_types()))
+				return;
+
+			$funnel_position = get_post_meta(get_the_ID(), 'funnel_position');
+
+			if(empty($funnel_position)){
+				return;
+			}
+
+			$funnel_position = $funnel_position[0];
+			$outcome = get_post_meta(get_the_ID(), 'px_outcome');
+			$page_url = $_SERVER['REQUEST_URI'];
+			$ip = $_SERVER['REMOTE_ADDR'];
+
+			if(!empty($outcome)){
+				$outcome = explode('###', $outcome[0]);
+				$o_id = $outcome[0];
+				$o_title = $outcome[1];
+				// $o_fp = $outcome[2];
+
+				global $wpdb;
+				$ad_link = $wpdb->get_results("SELECT id, side_ad, side_link FROM " . $wpdb->prefix . "px_adverts WHERE outcome_id = $o_id AND funnel_position = '$funnel_position';");
+			
+			 	if(!empty($ad_link)){
+				 	$ad = '<a class="ad_track px_sidead" href="' . $ad_link[0]->side_link . '" ';
+				 	$ad .= ' data-post_id="' . get_the_ID() . '"';
+				 	$ad .= ' data-ip="' . $ip . '"';
+				 	$ad .= ' data-page_url="' . $page_url . '"';
+				  	$ad .= ' data-advert_id="' . $ad_link[0]->id . '"';
+				 	$ad .= '><img src="' . $ad_link[0]->side_ad .'"></a>';
+					echo $ad;
+			 	}
+			}
+
+			/* END OF SIDEAD */
+
+			?>
+
+			<?php			
+
+		}else{
+
+			?>
+
+			<div class="px_sidead">
+				<a href="<?php echo $link; ?>">
+					<img src="<?php echo $img; ?>">
+				</a>
+			</div>
+
+			<?php
+
+		}
+
 	}
 
 	public function form( $instance ) {
